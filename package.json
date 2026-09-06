@@ -2,7 +2,11 @@
   "name": "pi-pirate",
   "version": "1.0.0",
   "description": "pi extension: toggle pirate speak via /pirate (system prompt + per-turn reminder)",
-  "keywords": ["pi-package", "pi-extension", "fun"],
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "fun"
+  ],
   "license": "MIT",
   "author": "David Raistrick",
   "homepage": "https://github.com/keen99/pi-pirate",
@@ -18,9 +22,16 @@
     "check": "echo 'nothing to check'"
   },
   "pi": {
-    "extensions": ["./index.ts"]
+    "extensions": [
+      "./index.ts"
+    ]
   },
   "peerDependencies": {
     "@earendil-works/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@earendil-works/pi-coding-agent": {
+      "optional": true
+    }
   }
 }
