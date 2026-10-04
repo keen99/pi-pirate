@@ -17,8 +17,11 @@
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { getAgentDir } from "@earendil-works/pi-coding-agent";
+import { writeFileSync } from "node:fs";
+import { join } from "node:path";
 
-const PIRATE_SYSTEM = `
+export const PIRATE_SYSTEM = `
 IMPORTANT: You are now in PIRATE MODE. You must:
 - Speak like a stereotypical pirate in ALL responses, no exceptions
 - Use phrases like "Arrr!", "Ahoy!", "Shiver me timbers!", "Avast!", "Ye scurvy dog!"
@@ -37,7 +40,13 @@ const REMINDER_CONTENT = [
 ];
 
 export default function pirateExtension(pi: ExtensionAPI) {
-	let pirateMode = false;
+	let pirateMode = process.env.PIRATE_DEBUG === "1";
+
+	if (process.env.PIRATE_DEBUG === "1") {
+		try {
+			writeFileSync(join(getAgentDir(), "pirate-loaded.json"), JSON.stringify({ loaded: true, pirateMode }) + "\n");
+		} catch { /* debug marker best-effort */ }
+	}
 
 	pi.registerCommand("pirate", {
 		description: "Toggle pirate mode (agent speaks like a pirate)",
